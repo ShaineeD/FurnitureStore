@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">FurnitureStore</string>
+    <string-array name="Type">
+        <item>Customer</item>
+        <item>Seller</item>
+        <item>Carpenter</item>
+    </string-array>
+</resources>
