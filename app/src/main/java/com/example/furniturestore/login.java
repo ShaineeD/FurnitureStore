@@ -30,8 +30,10 @@ public class login extends Darshbord {
     protected void onCreate(Bundle savedInstanceState) {
        super.onCreate(savedInstanceState);
        setContentView(R.layout.activity_login);
-       Intent i = getIntent();
-       n = i.getStringExtra("name");
+     //  Intent i = getIntent();
+      // n = i.getStringExtra("name");
+
+       n = GetUserName.uname;
        fnamee = (EditText) findViewById(R.id.editName);
        pw = (EditText) findViewById(R.id.editPass);
        update = (Button) findViewById(R.id.update);
@@ -46,11 +48,12 @@ public class login extends Darshbord {
            @Override
            public void onClick(View view) {
 
-               DatabaseReference upRef = FirebaseDatabase.getInstance().getReference().child("Member");
+               final DatabaseReference upRef = FirebaseDatabase.getInstance().getReference().child("Member");
                upRef.addListenerForSingleValueEvent(new ValueEventListener() {
                    @Override
                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                        if (dataSnapshot.hasChild(n)) {
+                           std = dataSnapshot.child(n).getValue(Member.class);
                            try {
                                std.setName(fnamee.getText().toString().trim());
                                std.setPassword(pw.getText().toString().trim());

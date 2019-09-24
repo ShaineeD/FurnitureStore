@@ -6,8 +6,19 @@ public class Member {
     private String Password;
     private String Type;
     private String pushId;
+    private  String rePassword;
+
+
 
     public Member() {
+    }
+
+    public String getRePassword() {
+        return rePassword;
+    }
+
+    public void setRePassword(String rePassword) {
+        this.rePassword = rePassword;
     }
 
     public String getName() { return Name; }

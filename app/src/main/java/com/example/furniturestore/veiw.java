@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -17,7 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class veiw extends AppCompatActivity {
-    EditText namee,emaill;
+   TextView namee,emaill;
     Member std;
     DatabaseReference reff;
     String n;
@@ -26,13 +27,13 @@ public class veiw extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_veiw);
-       Intent i = getIntent();
-        n= i.getStringExtra("name");
-
+     //  Intent i = getIntent();
+       // n= i.getStringExtra("name");
+       n =GetUserName.uname;
         Toast.makeText(getApplicationContext(), "sdada", Toast.LENGTH_SHORT).show();
 
-        namee=(EditText) findViewById(R.id.editName);
-        emaill=(EditText) findViewById(R.id.editMail);
+        namee=(TextView) findViewById(R.id.name);
+        emaill=(TextView) findViewById(R.id.email);
         std=new Member();
       //  Toast.makeText(getApplicationContext(), "ffffddddd", Toast.LENGTH_SHORT).show();
 

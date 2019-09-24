@@ -37,19 +37,18 @@ public class oriLogin extends AppCompatActivity {
         chngbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openSettings();
-            }
-        });
+
             Toast.makeText(oriLogin.this,"nnnnnnnnn",Toast.LENGTH_SHORT).show();
             final String name= nname.getText().toString();
+            GetUserName.uname = name;
             final String cpassword=ppassword.getText().toString();
-            reff=FirebaseDatabase.getInstance().getReference().child("m1");
+            reff=FirebaseDatabase.getInstance().getReference().child("Member");
             reff.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.hasChild(name)) {
                         Toast.makeText(oriLogin.this,"hhhhh",Toast.LENGTH_SHORT).show();
-                        if (ppassword.equals(dataSnapshot.child(name).child("password").getValue().toString()))
+                        if (cpassword.equals(dataSnapshot.child(name).child("password").getValue().toString()))
 
                         {
                             Intent intent4 = new Intent(oriLogin.this, Darshbord.class);
@@ -63,12 +62,15 @@ public class oriLogin extends AppCompatActivity {
                     } else
                         Toast.makeText(getApplicationContext(),"Enter valid username",Toast.LENGTH_SHORT).show();
 
+                    //specific login
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
             });
+            }
+        });
     }
 
 
