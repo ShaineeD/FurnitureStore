@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -21,9 +22,10 @@ import com.google.firebase.database.ValueEventListener;
 
 public class login extends Darshbord {
 
-    EditText fnamee,pw;
+    EditText pw;
+    TextView fnamee;
     Member std;
-    DatabaseReference reff;
+    DatabaseReference reff,dbref;
     Button  update, delete;
     String n;
    @Override
@@ -34,28 +36,28 @@ public class login extends Darshbord {
       // n = i.getStringExtra("name");
 
        n = GetUserName.uname;
-       fnamee = (EditText) findViewById(R.id.editName);
+       fnamee = (TextView) findViewById(R.id.uname);
        pw = (EditText) findViewById(R.id.editPass);
        update = (Button) findViewById(R.id.update);
        delete = (Button) findViewById(R.id.delete);
        std = new Member();
        Toast.makeText(getApplicationContext(), "ffffddddd", Toast.LENGTH_SHORT).show();
 
-
+           fnamee.setText(n);
        //DatabaseReference upRef= FirebaseDatabase.getInstance().getReference().child("Member");
 
        update.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
 
-               final DatabaseReference upRef = FirebaseDatabase.getInstance().getReference().child("Member");
+           /*    final DatabaseReference upRef = FirebaseDatabase.getInstance().getReference().child("Member");
                upRef.addListenerForSingleValueEvent(new ValueEventListener() {
                    @Override
                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                        if (dataSnapshot.hasChild(n)) {
                            std = dataSnapshot.child(n).getValue(Member.class);
                            try {
-                               std.setName(fnamee.getText().toString().trim());
+                             //  std.setName(fnamee.getText().toString().trim());
                                std.setPassword(pw.getText().toString().trim());
 
 
@@ -105,11 +107,37 @@ public class login extends Darshbord {
 
                    }
 
-               });
+               });*/
 
+           Intent i = new Intent(login.this,newre.class);
+           startActivity(i);
            }
 
 
+       });
+
+       delete.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               DatabaseReference delRef=FirebaseDatabase.getInstance().getReference().child("Member");
+               delRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                   @Override
+                   public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                       if(dataSnapshot.hasChild(n)){
+                           dbref =FirebaseDatabase.getInstance().getReference().child("Member").child(n);
+                           dbref.removeValue();
+                           Toast.makeText(getApplicationContext(),"Data deleted successfully",Toast.LENGTH_SHORT).show();
+                       }
+                       else
+                           Toast.makeText(getApplicationContext(),"No sourse deleted",Toast.LENGTH_SHORT).show();
+                   }
+
+                   @Override
+                   public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                   }
+               });
+           }
        });
    }
 }
